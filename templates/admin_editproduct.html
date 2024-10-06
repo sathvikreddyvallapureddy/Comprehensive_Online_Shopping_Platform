@@ -1,0 +1,68 @@
+{% extends 'admin_base.html' %}
+{% load static %}
+{% block title %}Edit Product{% endblock %}
+{% block content %}
+
+
+<section class="shop_section layout_padding pt-2 pb-5">
+    <div class="container">
+      <h3 class="my-4 border-bottom pb-1">Edit Product</h3>
+      
+      
+
+      <form action="/adminpanel/admin_watches/admin_editproduct/{{product_data.id}}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="form-group row">
+          <label for="product_title" class="col-sm-2 col-form-label">Title</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="product_title" name="product_title" placeholder="Product Title" value="{{ product_data.title }}">
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="product_description" class="col-sm-2 col-form-label">Description</label>
+          <div class="col-sm-10">
+            <textarea type="text" class="form-control" id="product_description" name="product_description" placeholder="Product Description">{{product_data.description }}</textarea>
+          </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="product_price" class="col-sm-2 col-form-label">Price</label>
+            <div class="col-sm-10">
+              <input type="number" class="form-control" id="product_price" name="product_price" placeholder="Product Price" value="{{ product_data.price}}">
+            </div>
+        </div>
+        
+        <div class="form-group row">
+            <div class="form-check">
+              <input class="form-check-input" style="width:20px; height:20px" type="checkbox" id="gridCheck" name="product_is_featured" {% if  product_data.is_featured %} checked {% endif %}>&nbsp;
+              <label class="form-check-label" for="gridCheck">Is Featured</label>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="product_image" class="col-sm-2 col-form-label">Image</label>
+            <div class="col-sm-10">
+              current: <a target="_blank" href="{{ product_data.image.url }}">{{ product_data.image.url }}</a>
+              <input type="file" class="form-control" id="product_image" name="product_image" value="{{ product_data.image.url }}">
+            </div>
+        </div>
+
+        <div class="form-group row mt-4">
+            <div class="col-sm-10">
+              <button type="submit" class="btn btn-primary">Update Product</button>
+            </div>
+        </div>
+
+        
+
+      </form>
+
+    </div>
+
+    </div>
+</section>
+
+
+{% endblock %}

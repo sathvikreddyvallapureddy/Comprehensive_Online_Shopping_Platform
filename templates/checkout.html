@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Checkout{% endblock %}
+{% block content %}
+
+    
+<section class="shop_section layout_padding py-2 container">
+    <h3 class="my-4 border-bottom pb-1">Checkout</h3>
+    <form action="placeorder" method="POST">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-7 mb-2 mb-md-0">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h6>Basic Details</h5>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>First Name</label>
+                                <input type="text" required value="{{ request.user.first_name }}" class="form-control"name="fname" placeholder="Enter First Name">
+                            </div>
+                            <div class="col-md-6">
+                                <label>Last Name</label>
+                                <input type="text" required value="{{ request.user.last_name }}" class="form-control"name="lname" placeholder="Enter Last Name">
+                            </div>
+                            <div class="col-md-6 mt-3">
+                                <label>Email</label>
+                                <input type="email" required value="{{ request.user.email }}" class="form-control" name="email" placeholder="Enter Email">
+                            </div>
+                            <div class="col-md-6 mt-3">
+                                <label>Phone Number</label>
+                                <input type="text" required value="{{ userprofile.phone }}" class="form-control" name="phone" placeholder="Enter phone Number">
+                            </div>
+                            <div class="col-md-12 mt-3">
+                                <label>Address</label>
+                                <textarea required class="form-control" name="address" placeholder="Enter Address">{{ userprofile.address }}</textarea>
+                            </div>
+                            <div class="col-md-6 mt-3">
+                                <label>City</label>
+                                <input type="text" required value="{{ userprofile.city }}" class="form-control" name="city" placeholder="Enter Last Name">
+                            </div>
+                            <div class="col-md-6 mt-3">
+                                <label>State</label>
+                                <input type="text" required value="{{ userprofile.state }}" class="form-control" name="state" placeholder="Enter State">
+                            </div>
+                            <div class="col-md-6 mt-3">
+                                <label>Country</label>
+                                <input type="text" required value="{{ userprofile.country }}" class="form-control" name="country" placeholder="Enter Country">
+                            </div>
+                            <div class="col-md-6 mt-3">
+                                <label>Pincode</label>
+                                <input type="text" required value="{{ userprofile.pincode }}" class="form-control" name="pincode" placeholder="Enter Pincode">
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+                
+            
+            
+            </div>
+
+            <div class="col-md-5 mt-2 mt-md-0">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h6>Order Summary</h6>
+                        <hr>
+                        {% if checkout_data %}
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Qty</th>
+                                    <th>Price</th>
+                                    <!--<th>Total</th>-->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in checkout_data %}
+                                <tr>
+                                    <td>
+                                        <img src="/media/{{ item.product.image }}" width="20px"> &nbsp; {{ item.product.title }}
+                                    </td>
+                                    <td>
+                                        <p>{{ item.product_qty }}</p>
+                                    </td>
+                                    <td>
+                                        <p> ${{ item.product.price }}</p>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                            <tfoot>
+                                <th colspan="2">Grand Total : </th>
+                                <th>$ {{ total_price }}</th>
+                            </tfoot>
+                        </table>
+                        <input type="hidden" value="COD" name="payment_mode">
+                        <input type="hidden" value="COD" name="payment_id">
+                        <div>
+                            <button type="submit" class="btn btn-success w-100 mt-2">Place Order | COD</button>
+                            <button type="button" class="btn btn-dark w-100 mt-2 payWithRazorpay">pay with Razorpay</button>
+                        </div>
+                        {% else %}
+                        <h6>No Products in Cart <i class="fa fa-frown-o"></i></h6>
+                        {% endif %}
+                    </div>
+                </div>
+            
+            
+            </div>
+        </div>
+    </form>
+
+
+</section>
+
+<br>
+
+{% endblock %}
+
+{% block scripts  %}
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+{% endblock scripts %}
+

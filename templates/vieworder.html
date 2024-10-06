@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}My Orders{% endblock %}
+{% block content %}
+
+
+<section class="shop_section layout_padding py-2 mb-5 container">
+    <h4 class="my-4 border-bottom pb-1">Order Details({{ order.tracking_no }})
+        <a href="/my-orders" class="btn btn-dark float-right btn-sm text-white px-4 mr-4"><i class="fa fa-reply"></i>&nbsp;Back</a>
+    </h4>
+    {% if order %}
+
+    <div class="row">
+
+        <div class="col-md-7 mb-2 mb-md-0">
+            <div class="card shadow">
+                <div class="card-body">
+                    <!--<h6 class="font-weight-bold" >Order Details({{ order.tracking_no }})</h6>
+                    <hr>-->
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Qty</th>
+                                <th>Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in orderitems %}
+                            <tr>
+                                <td>
+                                    <img src="/media/{{ item.product.image }}" width="20px"> &nbsp; {{ item.product.title }}
+                                </td>
+                                <td>
+                                    <p>{{ item.quantity }}</p>
+                                </td>
+                                <td>
+                                    <p> ${{ item.product.price }}</p>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                        <tfoot>
+                            <th colspan="2">Grand Total : </th>
+                            <th>$ {{ order.total_price }}</th>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-5 mb-2 mb-md-0">
+
+            <div class="card shadow">
+                <div class="card-body">
+                    <h6 class="font-weight-bold">Shipping Details</h6>
+                    <hr>
+                    <h6 class="font-weight-bold">{{ order.fname}}&nbsp;{{ order.lname }}</h6>
+                    <p class="mb-0">{{ order.address }}, {{ order.city }}, <br>{{ order.state }}, {{ order.country }} - {{ order.pincode }}</p>
+                    <p class="mb-0">Phone: {{ order.phone }}</p>
+                </div>
+            </div>
+
+            <div class="card shadow mt-2">
+                <div class="card-body">
+                    <h6 class="font-weight-bold">Payment Details</h6>
+                    <hr>
+                    <h6>Payment Mode: {{ order.payment_mode }}</h6>
+                    <h6>Order Status: {{ order.status }}</h6>
+                    <h6>Tracking No: {{ order.tracking_no }}</h6>
+                    <h6>Date: {{ order.created_at }}</h6>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+    {% else %}
+    <h5>No record found</h5>
+    {% endif %}
+</section>
+
+{% endblock %}

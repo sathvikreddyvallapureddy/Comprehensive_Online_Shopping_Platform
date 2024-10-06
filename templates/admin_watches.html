@@ -1,0 +1,43 @@
+{% extends 'admin_base.html' %}
+{% load static %}
+{% block title %}Watches{% endblock %}
+{% block content %}
+
+<section class="shop_section layout_padding pt-2 pb-5">
+    <div class="container">
+      <h3 class="my-4 border-bottom pb-1">All Watches({{ product_data_count }})
+        <a href="admin_watches/admin_addproduct" class="btn btn-dark float-right btn-sm text-white px-4 mr-4"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Watch</a>
+      </h3>
+      <div class="row align-center">
+        {% for product in product_data %}
+          <div class="col-sm-6 col-xl-3 product_data">
+            <div class="box ">
+              <div class="text-right">
+                <a class="btn btn-primary text-white" href="admin_watches/admin_editproduct/{{ product.id }}"><i class="fa fa-edit"></i></a>
+                <a class="btn btn-danger text-white" href="admin_watches/admin_deleteproduct/{{ product.id }}"><i class="fa fa-trash"></i></a>
+              </div>
+              <a href="admin_watches/{{product.id}}">
+                <div class="img-box">
+                  <img src="/media/{{product.image}}" alt="">
+                </div>
+                <div class="detail-box">
+                  <h6>{{product.title}}</h6>
+                  <h6>
+                    Price:
+                    <span>
+                      ${{product.price}}
+                    </span>
+                  </h6>
+                </div>
+              </a>
+
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+    </div>
+</section>
+
+{% endblock %}

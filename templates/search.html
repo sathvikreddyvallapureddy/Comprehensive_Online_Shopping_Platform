@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Search for "{{searchedterm}}"{% endblock %}
+{% block content %}
+
+<section class="shop_section layout_padding py-2 container wishlist">
+    <h3 class="my-4 border-bottom pb-1">Search Result for "{{ searchedterm }}"</h3>
+
+    {% if data %}
+    <div class="row mb-2">
+        {% for product in data %}
+          <div class="col-sm-6 col-xl-3 product_data">
+            <input type="hidden" class="product_id" value="{{ product.id }}">
+            {% csrf_token %}
+            <div class="box ">
+              <div class="text-right">
+                <button class="btn btn-success moveToWishlistBtn"><i class="fa fa-heart"></i></button>
+              </div>
+              <a href="/watches/{{product.title}}">
+                <div class="img-box">
+                  <img src="/media/{{product.image}}" alt="">
+                </div>
+                <div class="detail-box">
+                  <h6>{{product.title}}</h6>
+                  <h6>
+                    Price:
+                    <span>
+                      ${{product.price}}
+                    </span>
+                  </h6>
+                </div>
+              </a>
+
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+    </div>
+    {% else %}
+    <div class="text-center pb-2">
+        <img src={% static 'images/no-product-found.png' %} width=100%>
+    </div>
+
+    {% endif %}
+</section>
+
+
+{% endblock %}

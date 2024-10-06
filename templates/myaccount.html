@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}My Account{% endblock %}
+
+{% block content %}
+
+<section class="shop_section layout_padding py-2 mb-5 container">
+    <h3 class="my-4 border-bottom pb-1">My Account</h3>
+    {% if user.is_authenticated %}
+        <h1>Hello, {{user.first_name}}</h1>
+        <br>
+        <div class="mb-3">
+            <a href="my-orders">
+                <button type="button" class="btn btn-dark" style="width:250px"><i class="fa fa-shopping-bag" aria-hidden="true"></i>
+                    &nbsp;My Orders</button>
+            </a>
+        </div>
+        <a href="signout">
+            <button type="button" class="btn btn-primary" style="width:250px"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;Sign Out</button>
+        </a>
+        {% else %}
+        <a href="signin">
+            <button type="button" class="btn btn-primary" style="width:250px">Sign in</button>
+        </a><br><br>
+        <a href="signup">
+            <button type="button" class="btn btn-secondary" style="width:250px">Sign up</button>
+        </a><br>
+        {% endif %}
+    </section>
+
+{% endblock %}

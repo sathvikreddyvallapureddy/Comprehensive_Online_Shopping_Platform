@@ -1,0 +1,74 @@
+{% extends 'admin_base.html' %}
+{% load static %}
+{% block title %}Customers{% endblock %}
+{% block content %}
+
+
+<section class="shop_section layout_padding py-2 mb-5 container">
+    <h3 class="my-4 border-bottom pb-1">All Customers({{ customer_data_count }})</h3>
+    
+    <div class="row">
+        <div class="col-md-12 mb-2 mb-md-0">
+            <div class="card shadow">
+                <div class="card-body">
+                    {% if customer_data %}
+                    <table class="table table-bordered text-center">
+                        <thead>
+                            <tr>
+                                <th>User Name</th>
+                                <th>Email id</th>                                
+                                <th>Status</th>
+                                <th>Is Admin</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for customer in customer_data %}
+                            <tr>
+                                <td>
+                                    <p>{{ customer.username }}</p>
+                                </td>
+                                <td>
+                                    <p> {{ customer.email }}</p>
+                                </td>
+                                <td>
+                                    {% if customer.is_active %}
+                                    <p>active</p>
+                                    {% else %}
+                                    <p>Inactive </p>
+                                    {% endif %}
+                                </td>
+
+                                <td>
+                                    {% if customer.is_superuser %}
+                                    <p class="text-center text-success"><i class="fa fa-check"></i></p>
+                                    {% else %}
+                                    <p class="text-center text-danger"><i class="fa fa-ban"></i></p>
+                                    {% endif %}
+                                </td>
+                                
+
+
+                                <td>
+                                    <a href="admin_customers/admin_editcustomer/{{ customer.username }}" class="btn btn-primary text-white">Edit <i class="fa fa-edit" aria-hidden="true"></i></a>
+                                    &nbsp;
+                                    <a href="admin_customers/admin_deletecustomer/{{ customer.username }}" class="btn btn-danger text-white">Delete <i class="fa fa-trash" aria-hidden="true"></i></a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% else %}
+                    <h3>There are NO Customers</h3>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</section>
+
+
+
+{% endblock %}

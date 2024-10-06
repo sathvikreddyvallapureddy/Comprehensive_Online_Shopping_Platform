@@ -1,0 +1,71 @@
+{% extends 'admin_base.html' %}
+{% load static %}
+{% block title %}Orders{% endblock %}
+{% block content %}
+
+
+<section class="shop_section layout_padding py-2 mb-5 container">
+    <h3 class="my-4 border-bottom pb-1">All Orders({{ order_data_count }})</h3>
+    
+    <div class="row">
+        <div class="col-md-12 mb-2 mb-md-0">
+            <div class="card shadow">
+                <div class="card-body">
+                    {% if order_data %}
+                    <table class="table table-bordered text-center">
+                        <thead>
+                            <tr>
+                                <th>Order Id</th>
+                                <th>User Name</th>                                
+                                <th>Total Price</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for order in order_data  reversed %}
+                            <tr>    
+                                <td>
+                                    <p>{{ order.tracking_no }}</p>
+                                </td>
+                                <td>
+                                    <p> {{ order.user }}</p>
+                                </td>
+                                <td>
+                                    <p> ${{ order.total_price }}</p>
+                                </td>
+                                <td>
+                                    <form method="POST" action="/adminpanel/admin_orders">
+                                        {% csrf_token %}
+                                        <input type="hidden" value="{{ order.tracking_no }}" name="trackingno">
+                                    <select class="form-select form-select-sm" name="order_status" aria-label=".form-select-sm example">
+                                        <option selected>{{ order.status }}</option>
+                                        {% if order.status == "Pending" %}
+                                        <option value="Out For Shipping">Out For Shipping</option>
+                                        <option value="Completed">Completed</option>
+                                        {% elif order.status == "Out For Shipping" %}
+                                        <option value="Completed">Completed</option>
+                                        {% endif %}
+                                    </select>
+                                
+                                    <button type="submit" class="btn btn-primary text-white">Update <i class="fa fa-edit" aria-hidden="true"></i></button>
+                                    </form>
+                                </td>
+
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% else %}
+                    <h3>There are NO orders yet!</h3>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</section>
+
+
+
+{% endblock %}

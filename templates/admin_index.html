@@ -1,0 +1,40 @@
+{% extends 'admin_base.html' %}
+{% load static %}
+{% block title %}Admin Dashboard{% endblock %}
+{% block content %}
+
+
+<div class="container mt-5">
+    <div class="row align-center">
+        <div class="card bg-info text-white col-sm m-3 ">
+                <a href="/adminpanel/admin_watches" class="text-white">
+                <div class="card-body">
+                    <h1 class="card-title">{{ watches_count }}</h1>
+                    <h4 class="card-text">Watches</h4>
+                </div>
+            </a>
+            </div>
+
+        <div class="card bg-info text-white col-sm m-3">
+            <a href="/adminpanel/admin_customers" class="text-white">
+            <div class="card-body">
+            <h1 class="card-title">{{ customers_count }}</h1>
+            <h4 class="card-text">Customers</h4>
+            </div>
+        </a>
+        </div>
+
+        <div class="card bg-info text-white col-sm m-3">
+            <a href="/adminpanel/admin_orders" class="text-white">
+            <div class="card-body">
+            <h1 class="card-title">{{ orders_count }}</h1>
+            <h4 class="card-text">Orders</h4>
+            </div>
+        </a>
+        </div>
+
+
+    </div>
+</div>
+
+{% endblock %}

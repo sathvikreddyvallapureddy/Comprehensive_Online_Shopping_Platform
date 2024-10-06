@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}My Orders{% endblock %}
+{% block content %}
+
+<section class="shop_section layout_padding py-2 mb-5 container">
+    <h3 class="my-4 border-bottom pb-1">My Orders</h3>
+
+    <div class="row">
+        <div class="col-md-12 mb-2 mb-md-0">
+            <div class="card shadow">
+                <div class="card-body">
+                    {% if orders %}
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Order Date</th>
+                                <th>Tracking No</th>
+                                <th>Total Price</th>                                
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in orders reversed %}
+                            <tr>
+                                <td>
+                                    <p>{{ item.created_at }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ item.tracking_no }}</p>
+                                </td>
+                                <td>
+                                    <p> ${{ item.total_price }}</p>
+                                </td>
+                                <td>
+                                    <p> {{ item.status }}</p>
+                                </td>
+                                <td>
+                                    <a href="vieworder/{{item.tracking_no}}" class="btn btn-primary text-white"> View Details </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% else %}
+                    <h3>You didn't made any orders yet!</h3>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</section>
+
+
+
+
+
+{% endblock %}

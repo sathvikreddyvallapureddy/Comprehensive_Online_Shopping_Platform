@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}watch_detail{% endblock %}
+{% block content %}
+<!--
+<div class="py-3 bg-primary">
+    <div class="container">
+        <a class="text-white" href="/">Home/</a>
+        <a class="text-white" href="{{product.title}}">{{product.title}}</a>
+    </div>
+</div>-->
+
+<section class="watch_detail  py-5">
+    <div class="container product_data">
+        <div class="row">
+            <div class="col-sm-12 col-md-4 col-xl-2">
+                <div class="box text-center">
+                    <img src="/media/{{product.image}}" width="150px" />
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-8 col-xl-10 my-5">
+                    <h1>{{product.title}}</h1>
+                    <p>{{product.description}}</p>
+                    Price: $ {{product.price}}
+                    
+                    <div class="row mt-3">
+                        <div class= "col-md-2 product_data">
+                            {% csrf_token %}
+                            <input type="hidden" value="{{product.id}}" class="product_id">
+                            <label for="Quantity" >Quantity</label>
+                            <div class="input-group text-center mb-3 quantity" style="width:130px;">
+                                <button class="input-group-text decrement-btn">-</button>
+                                <input type="text" name="qty-input" class="form-control text-center qty-input" value="1">
+                                <button class="input-group-text increment-btn">+</button>
+                            </div>
+                        </div>
+
+                        <div class="col-md-10 mt-2">
+                            <br>
+                            <button type="button" class="btn btn-primary mb-3 addToCartBtn">Add to Cart &nbsp;<i class="fa fa-shopping-cart"></i></button>
+                            &nbsp;
+                            <button type="button" class="btn btn-success mb-3 moveToWishlistBtn">Move to Wishlist &nbsp;<i class="fa fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</section>
+
+
+<section class="shop_section layout_padding pt-2 pb-5">
+    <div class="container">
+      <h3 class="my-4 border-bottom pb-1">Similar Watches</h3>
+      <div class="row">
+        {% for product in similarproducts %}
+          <div class="col-sm-6 col-xl-3 product_data">
+            <input type="hidden" class="product_id" value="{{ product.id }}">
+            {% csrf_token %}
+            <div class="box ">
+              <div class="text-right">
+                <button class="btn btn-success moveToWishlistBtn"><i class="fa fa-heart"></i></button>
+              </div>
+              <a href="/watches/{{product.title}}">
+                <div class="img-box">
+                  <img src="/media/{{product.image}}" alt="">
+                </div>
+                <div class="detail-box">
+                  <h6>{{product.title}}</h6>
+                  <h6>
+                    Price:
+                    <span>
+                      ${{product.price}}
+                    </span>
+                  </h6>
+                </div>
+              </a>
+
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+    </div>
+</section>
+
+{% endblock %}

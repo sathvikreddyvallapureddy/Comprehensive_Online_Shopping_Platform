@@ -1,0 +1,40 @@
+{% extends 'admin_base.html' %}
+{% load static %}
+{% block title %}Edit Product{% endblock %}
+{% block content %}
+
+
+
+<section class="watch_detail  py-5">
+    <div class="container product_data">
+        
+        <div class="row">
+            <div class="col-sm-12 col-md-4 col-xl-2">
+                <div class="box text-center">
+                    <img src="/media/{{product_data.image}}" width="150px" />
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-8 col-xl-10 my-5">
+                <a href="/adminpanel/admin_watches" class="btn btn-dark float-right btn-sm text-white px-4 mr-4"><i class="fa fa-reply"></i>&nbsp;Back</a>
+                    <h1>{{product_data.title}}</h1>
+                    <p>{{product_data.description}}</p>
+                    Price: $ {{product_data.price}}
+                    
+                    <div class="row">
+
+                        <div class="col-md-10">
+                            <br>
+                            <a class="btn btn-primary text-white" href="/adminpanel/admin_watches/admin_editproduct/{{ product_data.id }}">Edit Product &nbsp;<i class="fa fa-edit"></i></a>
+                            <a class="btn btn-danger text-white" href="/adminpanel/admin_watches/admin_deleteproduct/{{ product_data.id }}">Delete Product &nbsp;<i class="fa fa-trash"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</section>
+
+
+
+
+
+{% endblock %}
